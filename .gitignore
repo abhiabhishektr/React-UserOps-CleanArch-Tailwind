@@ -1,0 +1,100 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node modules
+node_modules
+
+# Build directories
+dist
+dist-ssr
+
+# Local environment files
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS generated files
+Thumbs.db
+*.bak
+*.tmp
+*.temp
+*.log.*
+*.log.*
+*.bak.*
+*.swp
+*.lock
+
+# Environment variables
+.env
+
+# Miscellaneous
+trrrrrrrrrrrrrrr.js
+
+# General ignores
+Thumbs.db
+*.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# Compiled source files
+*.out
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.dylib
+
+# Dependency directories
+.bundle/
+vendor/
+Pods/
+build/
+
+# Caches
+.cache/
+.pnp/
+.pnp.js
+.pnpm-debug.log
+
+# Static site generators
+public/
+
+# IDE specific files
+.idea/
+*.iml
+*.ipr
+*.iws
+*.sublime-project
+*.sublime-workspace
+.vscode/
+*.code-workspace
+
+# Project specific ignores
+*bak/
+*tmp/
+*log/
+*log.*
+*bak.*
+
+# Custom ignores
+custom_ignore/
+another_custom_ignore/
