@@ -1,30 +1,22 @@
-// UserViewModel.js
+// src/viewmodels/UserViewModel.js
 
-// Action Types
-const SET_USER_DATA = 'SET_USER_DATA';
+import api from '../utils/api';
+import { loginSuccess, logout } from '../redux/user/userSlice';
 
-// Initial State
-const initialState = {
-  userData: null,
+export const loginUser = (email, password) => async (dispatch) => {
+    try {
+        const response = await api.post('/login', { email, password });
+        const { user, token } = response.data;
+        // Store token in localStorage or cookies
+        localStorage.setItem('token', token);
+        dispatch(loginSuccess({ user, token }));
+    } catch (error) {
+        // Handle login failure
+    }
 };
 
-// Action Creators
-export const setUserData = (userData) => ({
-  type: SET_USER_DATA,
-  payload: userData,
-});
-
-// Reducer
-const userReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case SET_USER_DATA:
-      return {
-        ...state,
-        userData: action.payload,
-      };
-    default:
-      return state;
-  }
+export const logoutUser = () => async (dispatch) => {
+    // Clear token from localStorage or cookies
+    localStorage.removeItem('token');
+    dispatch(logout());
 };
-
-export default userReducer;

@@ -1,11 +1,24 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faBell, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBell, faUser } from '@fortawesome/free-solid-svg-icons';
 import logo from '../assets/logo.jpeg'; // Assume you have a logo.png in assets
+
+import { useDispatch, useSelector } from 'react-redux';
+import { isLoginedIn } from '../redux/user/userSlice';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // Access the isLoginedIn state
+  const log = useSelector((state) => state.user.log);
+
+  const handleLogout = () => {
+    dispatch(isLoginedIn(false));
+    navigate('/');
+  };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -21,16 +34,24 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="hidden md:flex space-x-6 items-center">
-          <Link to="/login" className="text-white hover:text-gray-300">
-            Login
-          </Link>
+          {log ? (
+            <button
+              onClick={handleLogout}
+              className="text-white hover:text-gray-300"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link to="/login" className="text-white hover:text-gray-300">
+              Login
+            </Link>
+          )}
           <Link to="/UserProfilePage" className="text-white hover:text-gray-300">
             User Profile
           </Link>
-          <Link to="/AdminPage" className="text-white hover:text-gray-300">
+          <Link to="/AdminLoginPage" className="text-white hover:text-gray-300">
             Admin
           </Link>
-          {/* <FontAwesomeIcon icon={faSearch} className="text-white hover:text-gray-300" /> */}
           <FontAwesomeIcon icon={faBell} className="text-white hover:text-gray-300" />
           <FontAwesomeIcon icon={faUser} className="text-white hover:text-gray-300" />
         </div>
@@ -55,17 +76,25 @@ const Navbar = () => {
       </div>
       {isOpen && (
         <div className="md:hidden mt-2 space-y-2">
-          <Link to="/login" className="block text-white hover:text-gray-300">
-            Login
-          </Link>
-          <Link to="/user-profile" className="block text-white hover:text-gray-300">
+          {log ? (
+            <button
+              onClick={handleLogout}
+              className="block text-white hover:text-gray-300"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link to="/login" className="block text-white hover:text-gray-300">
+              Login
+            </Link>
+          )}
+          <Link to="/UserProfilePage" className="block text-white hover:text-gray-300">
             User Profile
           </Link>
-          <Link to="/admin" className="block text-white hover:text-gray-300">
+          <Link to="/AdminLoginPage" className="block text-white hover:text-gray-300">
             Admin
           </Link>
           <div className="flex space-x-6 mt-2">
-            {/* <FontAwesomeIcon icon={faSearch} className="text-white hover:text-gray-300" /> */}
             <FontAwesomeIcon icon={faBell} className="text-white hover:text-gray-300" />
             <FontAwesomeIcon icon={faUser} className="text-white hover:text-gray-300" />
           </div>

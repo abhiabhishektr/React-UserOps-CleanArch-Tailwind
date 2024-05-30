@@ -61,3 +61,13 @@ Certainly! Here's a brief overview of how you can use the Redux store in your co
    ```
 
 By following these steps, you can effectively integrate Redux into your components to manage state across your application.
+
+
+
+
+
+Generate JWT on User Login (Backend): Issue a JWT when the user logs in.
+Store JWT in Frontend: Store the JWT in the client (typically in localStorage or cookies).
+Send JWT with Requests: Include the JWT in the authorization header for protected API requests.
+Protect Frontend Routes (React): Use React Router to protect routes and redirect unauthenticated users.
+Verify Token in Middleware (Backend): Verify the JWT in the backend for protected API routes.

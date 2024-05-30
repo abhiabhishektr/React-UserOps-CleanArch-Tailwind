@@ -46,21 +46,35 @@ By incorporating Redux into the project, we ensure:
 
  C:\Users\ASUS\Desktop\Week 19>
 /client/
-       ├── views/
-       │   │   ├── components/
-       │   │   │   ├── UserProfile.jsx
-       │   │   │   └── AdminDashboard.jsx
-       |   |   |   └── Modal.jsx
-       |   |   |   └── Navbar.jsx
-       │   │   ├── pages/
-       │   │   │   ├── LoginPage.jsx
-       │   │   │   ├── LandingPage.jsx
-       │   │   │   ├── UserProfilePage.jsx
-       │   │   │   └── AdminPage.jsx
-       │   │   └── App.jsx
+   ├── views/
+   │   ├── components/
+   │   │   ├── UserProfile.jsx
+   │   │   ├── AdminDashboard.jsx
+   │   │   ├── Modal.jsx
+   │   │   └── Navbar.jsx
+   │   ├── redux/
+   │   │   ├── user/
+   │   │   │   └── userSlice.js
+   │   │   └── store.js
+   │   ├── viewmodels/
+   │   │   ├── UserViewModel.jsx
+   │   ├── utils/
+   │   │   ├── api.js
+   │   ├── pages/
+   │   │   ├── LoginPage.jsx
+   │   │   ├── LandingPage.jsx
+   │   │   ├── UserProfilePage.jsx
+   │   │   ├── AdminPage.jsx
+   │   │   └── HomePage.jsx 
+   │   └── App.jsx
+   └── styles/
+       └── styles.css
+
+
+
        │   ├── viewmodels/
        │   │   ├── UserViewModel.js
+       │   │   ├── UserActions.js
+       │   │   ├── userReducer.js
        │   │   ├── AdminViewModel.js
        │   │   └── store.js (Redux or Context API)
-       │   └── styles/
-       │       └── styles.css

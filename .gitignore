@@ -38,7 +38,8 @@ Thumbs.db
 *.bak.*
 *.swp
 *.lock
-
+client/.env
+server/.env
 # Environment variables
 .env
 

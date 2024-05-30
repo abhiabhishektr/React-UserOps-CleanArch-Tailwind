@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInStart, signInSuccess, signInFailure, isLoginedIn } from '../redux/user/userSlice';
 
 const userURL = 'http://localhost:4000/api/users';
 
@@ -11,10 +13,56 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const { currentUser, loading, error: reduxError, log } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    if (log) {
+      navigate('/UserProfilePage');
+    } else {
+      navigate('/login');
+    }
+  }, [log, navigate]);
+
+  useEffect(() => {
+    if (currentUser) {
+      console.log('Current user data:', currentUser);
+    }
+  }, [currentUser]);
+
+  const validateEmail = (email) => {
+    const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return re.test(String(email).toLowerCase());
+  };
+
+  const validateName = (name) => {
+    return name.length >= 3;
+  };
+
+  const validatePassword = (password) => {
+    const re = /^\S{4,}$/; // At least 4 characters, no spaces
+    return re.test(password);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError('');
+
+    if (!isLogin && !validateName(name)) {
+      setError('Name must be at least 3 characters long.');
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setError('Please enter a valid email address.');
+      return;
+    }
+
+    if (!validatePassword(password)) {
+      setError('Password must be at least 4 characters long and contain no spaces.');
+      return;
+    }
 
     const userData = {
       email: email,
@@ -26,12 +74,22 @@ const LoginPage = () => {
     }
 
     try {
-      const response = await axios.post(`${userURL}/${isLogin ? 'userlogin' : 'usersignup'}`, userData);
-      console.log('Data sent successfully:', response.data);
-      navigate('/');
-      // Handle successful response here, e.g., redirecting to another page or showing a success message
+      dispatch(signInStart());
 
+      const response = await axios.post(
+        `${userURL}/${isLogin ? 'userlogin' : 'usersignup'}`,
+        userData,
+        {
+          withCredentials: true // Ensure this is included
+        }
+      );
+      console.log('Data sent successfully:', response);
+
+      dispatch(signInSuccess(response.data));
+      dispatch(isLoginedIn(true));
+      navigate('/HomePage', { state: { username: 'JohnDoe' } });
     } catch (error) {
+      dispatch(signInFailure(error));
       console.error('There was an error sending the data:', error);
       const errorMessage = error.response?.data?.message || 'There was an error sending the data';
       setError(errorMessage);
