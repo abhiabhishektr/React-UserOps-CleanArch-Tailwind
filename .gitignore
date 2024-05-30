@@ -1,3 +1,7 @@
+# Ignore node_modules in both client and server
+client/node_modules
+server/node_modules
+
 # Logs
 logs
 *.log
@@ -38,10 +42,11 @@ Thumbs.db
 *.bak.*
 *.swp
 *.lock
+
+# Ignore environment files
+.env
 client/.env
 server/.env
-# Environment variables
-.env
 
 # Miscellaneous
 trrrrrrrrrrrrrrr.js
